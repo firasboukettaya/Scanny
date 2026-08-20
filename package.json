@@ -1,7 +1,6 @@
 {
-  "name": "scantn-multi-agent",
-  "version": "2.0.0",
-  "description": "Scanner de prix multi-enseignes Tunisie avec Agent IA temps réel",
+  "name": "scanny",
+  "version": "1.0.0",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
