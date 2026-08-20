@@ -1,6 +1,7 @@
 {
   "name": "scanny",
-  "version": "1.0.0",
+  "version": "3.0.0",
+  "description": "Scanner de prix multi-enseignes Tunisie avec Agent IA et Panier",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
