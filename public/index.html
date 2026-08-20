@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>ScanTN 🇹🇳 - Comparateur Multi-Enseignes</title>
+<title>ScanTN 🇹🇳 - Comparateur & Courses</title>
 <meta name="theme-color" content="#dc2626">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -11,196 +11,117 @@
 <style>
 :root{
 --red:#dc2626;--red-l:#fef2f2;--green:#16a34a;--green-l:#f0fdf4;
---orange:#ea580c;--orange-l:#fff7ed;--blue:#2563eb;--blue-l:#eff6ff;
---purple:#7c3aed;--purple-l:#f5f3ff;--gold:#fbbf24;
+--orange:#ea580c;--blue:#2563eb;--blue-l:#eff6ff;--purple:#7c3aed;--purple-l:#f5f3ff;
 --bg:#f8fafc;--card:#fff;--border:#e2e8f0;--bl:#f1f5f9;
 --t1:#0f172a;--t2:#475569;--t3:#94a3b8;
---sh:0 1px 3px rgba(0,0,0,.06),0 4px 12px rgba(0,0,0,.04);
---shl:0 8px 30px rgba(0,0,0,.08);
+--sh:0 1px 3px rgba(0,0,0,.06);--shl:0 8px 30px rgba(0,0,0,.08);
 --r:16px;--rs:10px;--rx:6px;
 }
 [data-theme="dark"]{
 --bg:#0f172a;--card:#1e293b;--border:#334155;--bl:#1e293b;
 --t1:#f1f5f9;--t2:#94a3b8;--t3:#64748b;
---red-l:#2d1215;--green-l:#0a2618;--orange-l:#2a1a0a;--blue-l:#0f1a2e;--purple-l:#1a102e;
+--red-l:#2d1215;--green-l:#0a2618;--blue-l:#0f1a2e;--purple-l:#1a102e;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{font-size:16px;-webkit-tap-highlight-color:transparent}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t1);min-height:100dvh;padding-bottom:72px;overflow-x:hidden}
 button{font-family:inherit;cursor:pointer;border:none;background:none}
 input{font-family:inherit}
 img{max-width:100%;display:block}
 
 /* LOGIN */
-.login-wrap{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:linear-gradient(160deg,#dc2626 0%,#7c3aed 100%)}
+.login-wrap{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:linear-gradient(160deg,#dc2626,#7c3aed)}
 .login-box{background:var(--card);border-radius:var(--r);padding:2rem 1.5rem;width:100%;max-width:380px;box-shadow:var(--shl)}
 .login-logo{text-align:center;margin-bottom:1.5rem}
 .login-logo h1{font-size:1.6rem;font-weight:900}
 .login-logo h1 span{color:var(--red)}
-.login-logo p{font-size:.8rem;color:var(--t3);margin-top:.25rem}
 .login-tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:1.25rem}
-.login-tab{flex:1;padding:.6rem;text-align:center;font-weight:700;font-size:.85rem;color:var(--t3);border-bottom:2px solid transparent;margin-bottom:-2px}
+.login-tab{flex:1;padding:.6rem;text-align:center;font-weight:700;font-size:.85rem;color:var(--t3);border-bottom:2px solid transparent}
 .login-tab.on{color:var(--red);border-color:var(--red)}
 .lf-group{display:flex;flex-direction:column;gap:.25rem;margin-bottom:.75rem}
 .lf-group label{font-size:.78rem;font-weight:600;color:var(--t2)}
-.lf-input{padding:.75rem;border:1.5px solid var(--border);border-radius:var(--rs);font-size:.9rem;background:var(--bg);color:var(--t1);outline:none}
-.lf-input:focus{border-color:var(--red)}
+.lf-input{padding:.75rem;border:1.5px solid var(--border);border-radius:var(--rs);font-size:.9rem;outline:none}
 .lf-btn{width:100%;padding:.85rem;background:var(--red);color:#fff;border-radius:var(--rs);font-weight:800;font-size:.95rem;margin-top:.5rem}
-.lf-sep{text-align:center;color:var(--t3);font-size:.75rem;margin:.5rem 0;position:relative}
-.lf-sep::before,.lf-sep::after{content:'';position:absolute;top:50%;width:38%;height:1px;background:var(--border)}
-.lf-sep::before{left:0}.lf-sep::after{right:0}
-.lf-guest{width:100%;padding:.7rem;border:1.5px solid var(--border);border-radius:var(--rs);font-weight:600;font-size:.85rem;color:var(--t2)}
+.lf-guest{width:100%;padding:.7rem;border:1.5px solid var(--border);border-radius:var(--rs);font-weight:600;font-size:.85rem;color:var(--t2);margin-top:.5rem}
 
-/* APP */
+/* APP SHELL */
 .app{display:none;flex-direction:column;min-height:100dvh}
 .app.on{display:flex}
 .topbar{position:sticky;top:0;z-index:100;background:var(--red);color:#fff;padding:0 1rem;height:54px;display:flex;align-items:center;gap:.6rem}
-.topbar-logo{font-weight:900;font-size:1.05rem;white-space:nowrap}
-.agent-badge{flex:1;display:flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.18);border-radius:50px;padding:.3rem .7rem;font-size:.72rem;font-weight:600;min-width:0;overflow:hidden}
-.agent-badge .dot{width:8px;height:8px;background:#4ade80;border-radius:50%;animation:pl 1.5s infinite;flex-shrink:0}
-@keyframes pl{0%,100%{opacity:1}50%{opacity:.3}}
-.agent-badge span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar-logo{font-weight:900;font-size:1.05rem}
+.store-sel{flex:1;display:flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.18);border-radius:50px;padding:.3rem .7rem;font-size:.78rem;font-weight:700;cursor:pointer;min-width:0;overflow:hidden}
+.store-sel span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .topbar-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;display:flex;align-items:center;justify-content:center;position:relative}
-.cart-badge{position:absolute;top:-3px;right:-3px;min-width:18px;height:18px;background:var(--gold);color:#000;font-size:.65rem;font-weight:900;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.cart-badge{position:absolute;top:-3px;right:-3px;min-width:18px;height:18px;background:#fbbf24;color:#000;font-size:.65rem;font-weight:900;border-radius:50%;display:flex;align-items:center;justify-content:center}
 
 .scr{display:none;flex:1;animation:fu .2s ease}.scr.on{display:flex;flex-direction:column}
 @keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 .bnav{position:fixed;bottom:0;left:0;right:0;height:66px;background:var(--card);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-around;z-index:100}
-.btab{display:flex;flex-direction:column;align-items:center;gap:.15rem;font-size:.6rem;font-weight:700;color:var(--t3);padding:.35rem .5rem;position:relative}
+.btab{display:flex;flex-direction:column;align-items:center;gap:.15rem;font-size:.6rem;font-weight:700;color:var(--t3);position:relative}
 .btab i{font-size:1.2rem}
 .btab.on{color:var(--red)}
 .btab.on::after{content:'';position:absolute;top:-1px;width:20px;height:3px;background:var(--red);border-radius:0 0 3px 3px}
 .fab{width:52px;height:52px;border-radius:50%;background:var(--red);color:#fff;font-size:1.3rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(220,38,38,.35);margin-top:-18px}
 
 /* SCANNER */
-.scan-area{flex:1;display:flex;flex-direction:column;align-items:center;padding:1rem;gap:1rem}
-.multi-info{background:var(--purple-l);border:1px solid var(--purple);color:var(--purple);padding:.6rem 1rem;border-radius:var(--rs);font-size:.75rem;font-weight:700;display:flex;align-items:center;gap:.5rem;max-width:360px;width:100%}
-.multi-info i{font-size:1rem}
-.enseignes-preview{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;max-width:360px}
-.ens-chip{background:var(--card);border:1px solid var(--border);border-radius:50px;padding:.3rem .7rem;font-size:.7rem;font-weight:600;display:flex;align-items:center;gap:.25rem}
+.scan-area{flex:1;display:flex;flex-direction:column;align-items:center;padding:1rem;gap:.75rem}
+.enseignes-bar{display:flex;gap:.35rem;overflow-x:auto;width:100%;max-width:360px;padding-bottom:.2rem}
+.ens-chip{background:var(--card);border:1px solid var(--border);border-radius:50px;padding:.25rem .6rem;font-size:.68rem;font-weight:700;white-space:nowrap}
 #reader{width:100%;max-width:360px;border-radius:var(--r);overflow:hidden;border:2px solid var(--border);background:#000;min-height:220px}
 .cam-btn{width:100%;max-width:360px;padding:.8rem;border:2px dashed var(--red);border-radius:var(--rs);font-weight:700;font-size:.85rem;color:var(--red);background:var(--red-l);display:flex;align-items:center;justify-content:center;gap:.5rem}
-.or-div{display:flex;align-items:center;gap:.6rem;color:var(--t3);font-size:.75rem;width:100%;max-width:360px}
-.or-div::before,.or-div::after{content:'';flex:1;height:1px;background:var(--border)}
 .bc-row{display:flex;gap:.4rem;width:100%;max-width:360px}
-.bc-in{flex:1;padding:.75rem;border:2px solid var(--border);border-radius:var(--rs);font-size:1rem;font-weight:700;text-align:center;letter-spacing:2px;background:var(--card);color:var(--t1);outline:none}
-.bc-in:focus{border-color:var(--red)}
-.bc-go{padding:0 1.1rem;background:var(--red);color:#fff;border-radius:var(--rs);font-weight:700;font-size:1rem}
-.scan-tip{font-size:.75rem;color:var(--t3);text-align:center;max-width:320px;line-height:1.4}
+.bc-in{flex:1;padding:.75rem;border:2px solid var(--border);border-radius:var(--rs);font-size:1rem;font-weight:700;text-align:center;background:var(--card);outline:none}
+.bc-go{padding:0 1.1rem;background:var(--red);color:#fff;border-radius:var(--rs);font-weight:700}
 
 /* DETAIL PRODUIT */
-.det-back{position:absolute;top:calc(54px + .5rem);left:.5rem;width:36px;height:36px;background:var(--card);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh);z-index:10;color:var(--t1);border:1px solid var(--border)}
+.det-back{position:absolute;top:calc(54px + .5rem);left:.5rem;width:36px;height:36px;background:var(--card);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh);z-index:10;border:1px solid var(--border)}
 .det-hero{background:var(--card);padding:1.25rem;display:flex;gap:1rem;border-bottom:1px solid var(--border)}
-.det-img{width:100px;height:100px;background:var(--bl);border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:3rem;flex-shrink:0;overflow:hidden}
-.det-img img{width:100%;height:100%;object-fit:contain;padding:.25rem}
-.det-meta{flex:1;display:flex;flex-direction:column;justify-content:center}
-.det-meta .brand{font-size:.75rem;color:var(--t3);font-weight:600;text-transform:uppercase}
-.det-meta .pname{font-size:1rem;font-weight:800;margin-top:.1rem;line-height:1.3}
-.det-meta .barcode{font-size:.7rem;color:var(--t3);margin-top:.25rem;font-family:monospace}
+.det-img{width:90px;height:90px;background:var(--bl);border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:2.8rem;overflow:hidden;flex-shrink:0}
+.det-img img{width:100%;height:100%;object-fit:contain}
+.det-meta .brand{font-size:.72rem;color:var(--t3);font-weight:700;text-transform:uppercase}
+.det-meta .pname{font-size:1rem;font-weight:800;margin-top:.1rem}
 
-/* BEST PRICE (Sur Podium) */
-.best-price{margin:.75rem 1rem;padding:1.25rem;background:linear-gradient(135deg,var(--green-l),#dcfce7);border:2px solid #86efac;border-radius:var(--r);text-align:center;position:relative;overflow:hidden}
-[data-theme="dark"] .best-price{background:linear-gradient(135deg,#052e16,#14532d);border-color:#166534}
-.best-price::before{content:'🏆';position:absolute;top:.5rem;right:.75rem;font-size:1.5rem}
-.best-price .bp-label{font-size:.72rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.5px}
-.best-price .bp-val{font-size:2.4rem;font-weight:900;color:var(--green);margin:.15rem 0;line-height:1}
-.best-price .bp-store{font-size:.95rem;font-weight:800;margin-top:.3rem}
-.best-price .bp-addr{font-size:.75rem;color:var(--t2);margin-top:.15rem}
-.best-price .bp-source{font-size:.68rem;color:var(--t3);margin-top:.3rem}
+.current-store-card{margin:.75rem 1rem 0;padding:.85rem 1rem;background:var(--blue-l);border:1.5px solid var(--blue);border-radius:var(--r);display:flex;align-items:center;justify-content:space-between}
+.csc-title{font-size:.72rem;color:var(--blue);font-weight:700;text-transform:uppercase}
+.csc-val{font-size:1.4rem;font-weight:900;color:var(--blue)}
 
-/* STATS BAR */
-.stats-bar{display:flex;gap:.4rem;margin:0 1rem .75rem}
-.stat-mini{flex:1;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:.6rem;text-align:center;box-shadow:var(--sh)}
-.stat-mini .v{font-size:.95rem;font-weight:900;color:var(--red)}
-.stat-mini .l{font-size:.65rem;color:var(--t3);margin-top:.1rem;font-weight:600}
+.best-price{margin:.5rem 1rem .75rem;padding:1rem;background:linear-gradient(135deg,var(--green-l),#dcfce7);border:2px solid #86efac;border-radius:var(--r);text-align:center}
+.best-price .bp-val{font-size:2.2rem;font-weight:900;color:var(--green)}
 
-/* COMPARATIF PRIX */
 .comp-sec{padding:0 1rem .75rem}
-.comp-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
-.comp-title h3{font-size:.9rem;font-weight:800;display:flex;align-items:center;gap:.4rem}
-.comp-title .badge{background:var(--purple-l);color:var(--purple);padding:.2rem .5rem;border-radius:50px;font-size:.65rem;font-weight:700}
-
-.p-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--rs);padding:.85rem;margin-bottom:.5rem;box-shadow:var(--sh);position:relative;overflow:hidden;transition:.2s}
-.p-card.best{border-color:var(--green);background:linear-gradient(90deg,var(--green-l) 0%,var(--card) 60%)}
-[data-theme="dark"] .p-card.best{background:linear-gradient(90deg,rgba(22,163,74,.15) 0%,var(--card) 60%)}
-.p-card.best::before{content:'★ MEILLEUR PRIX';position:absolute;top:0;right:0;background:var(--green);color:#fff;font-size:.6rem;font-weight:800;padding:.15rem .5rem;border-radius:0 0 0 var(--rs);letter-spacing:.5px}
-
-.p-row{display:flex;align-items:center;gap:.75rem}
-.p-ico{width:44px;height:44px;border-radius:var(--rx);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.comp-sec h3{font-size:.88rem;font-weight:800;margin-bottom:.5rem}
+.p-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--rs);padding:.75rem;margin-bottom:.4rem;box-shadow:var(--sh)}
+.p-card.best{border-color:var(--green);background:var(--green-l)}
+.p-row{display:flex;align-items:center;gap:.65rem}
+.p-ico{width:38px;height:38px;border-radius:var(--rx);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
 .p-info{flex:1;min-width:0}
-.p-name{font-weight:800;font-size:.88rem;display:flex;align-items:center;gap:.3rem}
-.p-addr{font-size:.7rem;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.1rem}
-.p-val-box{text-align:right}
-.p-val{font-size:1.2rem;font-weight:900;color:var(--red);white-space:nowrap;line-height:1}
-.p-val.best-val{color:var(--green)}
-.p-diff{font-size:.62rem;color:var(--orange);font-weight:700;margin-top:.15rem}
-.p-diff.plus{color:var(--red)}
-.p-diff.minus{color:var(--green)}
+.p-name{font-weight:800;font-size:.82rem}
+.p-val{font-size:1.15rem;font-weight:900;color:var(--red)}
 
-.p-foot{display:flex;align-items:center;justify-content:space-between;margin-top:.6rem;padding-top:.4rem;border-top:1px solid var(--bl);gap:.5rem;flex-wrap:wrap}
-.p-src{font-size:.65rem;color:var(--t3);display:flex;align-items:center;gap:.25rem;flex:1;min-width:0}
-.p-src a{color:var(--blue);text-decoration:none;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.p-date{font-size:.65rem;color:var(--t3);font-weight:600}
-.p-visit{background:var(--blue);color:#fff;padding:.3rem .6rem;border-radius:4px;font-size:.68rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:.25rem}
-
-/* ACTION BUTTONS */
-.action-grid{display:grid;grid-template-columns:1fr;gap:.5rem;padding:0 1rem .75rem}
-.btn-act{padding:.85rem;border-radius:var(--rs);font-weight:800;font-size:.9rem;display:flex;align-items:center;justify-content:center;gap:.5rem;transition:.15s}
-.btn-primary{background:var(--red);color:#fff}
-.btn-primary.added{background:var(--green)}
+.add-cart-btn{margin:0 1rem .75rem;padding:.85rem;background:var(--red);color:#fff;border-radius:var(--rs);font-weight:800;font-size:.92rem;display:flex;align-items:center;justify-content:center;gap:.5rem;width:calc(100% - 2rem)}
 
 /* PANIER */
-.cart-hdr{padding:1rem 1rem .5rem}
-.cart-hdr h2{font-size:1.15rem;font-weight:800}
-.cart-hdr p{font-size:.78rem;color:var(--t2);margin-top:.1rem}
+.cart-hdr{padding:1rem}
+.cart-store-banner{margin:0 1rem .75rem;padding:.75rem;background:var(--blue-l);border:1.5px solid var(--blue);border-radius:var(--rs);font-weight:700;font-size:.82rem;color:var(--blue);display:flex;align-items:center;justify-content:space-between}
 .cart-list{padding:0 1rem;flex:1}
-.cart-item{display:flex;align-items:center;gap:.65rem;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:.7rem;margin-bottom:.4rem;box-shadow:var(--sh)}
-.cart-img{width:44px;height:44px;background:var(--bl);border-radius:var(--rx);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;overflow:hidden}
-.cart-img img{width:100%;height:100%;object-fit:contain}
+.cart-item{display:flex;align-items:center;gap:.65rem;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:.7rem;margin-bottom:.4rem}
 .cart-info{flex:1;min-width:0}
-.cart-info .cn{font-weight:700;font-size:.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cart-info .cp{font-size:.72rem;color:var(--t3)}
-.cart-info .cs{font-size:.68rem;color:var(--green);font-weight:700}
-.cart-qty{display:flex;align-items:center;gap:.3rem}
-.cart-qty button{width:26px;height:26px;border-radius:50%;background:var(--bl);color:var(--t1);font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center}
-.cart-qty span{font-weight:800;font-size:.85rem;min-width:20px;text-align:center}
 .cart-total{padding:.85rem 1rem;background:var(--card);border-top:2px solid var(--border);margin-top:auto}
-.cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem;font-size:.85rem}
-.cart-total-row.final{font-size:1.15rem;font-weight:900;color:var(--red);padding-top:.4rem;border-top:1px solid var(--border);margin-top:.3rem}
-.cart-total-row.saved{color:var(--green);font-weight:700}
-.cart-checkout{width:100%;padding:.85rem;background:var(--green);color:#fff;border-radius:var(--rs);font-weight:800;font-size:.95rem;margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:.4rem}
 
-/* PROFIL */
-.prof-top{text-align:center;padding:1.5rem 1rem .75rem}
-.prof-av{width:68px;height:68px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:800;margin:0 auto .5rem}
-.prof-name{font-weight:800;font-size:1.05rem}
-.prof-email{font-size:.75rem;color:var(--t3)}
-.menu-list{padding:0 1rem}
-.menu-item{display:flex;align-items:center;gap:.6rem;padding:.8rem .85rem;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);margin-bottom:.35rem;font-weight:600;font-size:.82rem;color:var(--t1);box-shadow:var(--sh)}
-.menu-item i:first-child{width:16px;text-align:center;color:var(--red)}
-.menu-item .ar{margin-left:auto;color:var(--t3);font-size:.7rem}
-.menu-item.danger{color:var(--red)}
+/* STORE MODAL */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-end;justify-content:center}
+.modal-ov.on{display:flex}
+.modal-box{background:var(--card);border-radius:var(--r) var(--r) 0 0;width:100%;max-width:500px;max-height:75vh;overflow-y:auto;padding:1.25rem}
+.store-opt{display:flex;align-items:center;gap:.75rem;padding:.75rem;border:1.5px solid var(--border);border-radius:var(--rs);margin-bottom:.4rem;cursor:pointer}
+.store-opt.sel{border-color:var(--red);background:var(--red-l)}
 
-/* LOADER MULTI-AGENT */
-.loader-ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.loader-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:none;align-items:center;justify-content:center}
 .loader-ov.on{display:flex}
-.loader-box{background:var(--card);border-radius:var(--r);padding:1.5rem;text-align:center;box-shadow:var(--shl);max-width:320px;width:90%}
-.loader-title{font-size:.9rem;font-weight:800;margin-bottom:.75rem;color:var(--purple)}
-.agent-list{display:flex;flex-direction:column;gap:.35rem;margin:.75rem 0}
-.agent-item{display:flex;align-items:center;gap:.5rem;padding:.4rem;background:var(--bl);border-radius:var(--rx);font-size:.75rem;font-weight:600}
-.agent-item i{width:14px;text-align:center;font-size:.8rem}
-.agent-item.done i{color:var(--green)}
-.agent-item.loading i{color:var(--blue);animation:sp 1s linear infinite}
+.loader-box{background:var(--card);border-radius:var(--r);padding:1.5rem;text-align:center;box-shadow:var(--shl)}
+.spinner{width:36px;height:36px;border:3.5px solid var(--border);border-top-color:var(--red);border-radius:50%;animation:sp .7s linear infinite;margin:0 auto .5rem}
 @keyframes sp{to{transform:rotate(360deg)}}
-
 .toast-w{position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:1000}
-.toast{background:#1e293b;color:#fff;padding:.6rem 1rem;border-radius:50px;font-size:.8rem;font-weight:600;box-shadow:var(--shl);animation:tp .2s ease}
-@keyframes tp{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-.empty{text-align:center;padding:2rem 1rem;color:var(--t3)}
-.empty i{font-size:2.2rem;margin-bottom:.5rem;opacity:.25}
-.empty h3{font-size:.9rem;color:var(--t2);margin-bottom:.15rem}
-.empty p{font-size:.78rem}
+.toast{background:#1e293b;color:#fff;padding:.6rem 1rem;border-radius:50px;font-size:.8rem;font-weight:600}
 </style>
 </head>
 <body>
@@ -208,75 +129,53 @@ img{max-width:100%;display:block}
 <!-- LOGIN -->
 <div class="login-wrap" id="loginScreen">
 <div class="login-box">
-  <div class="login-logo">
-    <h1>🇹🇳 Scan<span>TN</span></h1>
-    <p>Comparateur Multi-Enseignes en Temps Réel</p>
-  </div>
+  <div class="login-logo"><h1>🇹🇳 Scan<span>TN</span></h1><p>Comparateur & Courses Multi-Magasins</p></div>
   <div class="login-tabs">
     <button class="login-tab on" onclick="loginTab('in')">Connexion</button>
     <button class="login-tab" onclick="loginTab('up')">Inscription</button>
   </div>
   <form onsubmit="doLogin(event)">
-    <div class="lf-group" id="nameGroup" style="display:none">
-      <label>Nom complet</label>
-      <input class="lf-input" id="regName" placeholder="Votre nom">
-    </div>
-    <div class="lf-group">
-      <label>Email</label>
-      <input class="lf-input" id="loginEmail" type="email" placeholder="votre@email.com" required>
-    </div>
-    <div class="lf-group">
-      <label>Mot de passe</label>
-      <input class="lf-input" type="password" placeholder="••••••••" required>
-    </div>
+    <div class="lf-group" id="nameGroup" style="display:none"><label>Nom complet</label><input class="lf-input" id="regName" placeholder="Votre nom"></div>
+    <div class="lf-group"><label>Email</label><input class="lf-input" id="loginEmail" type="email" placeholder="votre@email.com" required></div>
+    <div class="lf-group"><label>Mot de passe</label><input class="lf-input" type="password" placeholder="••••••••" required></div>
     <button class="lf-btn" type="submit" id="loginBtn">Se connecter</button>
   </form>
-  <div class="lf-sep">ou</div>
   <button class="lf-guest" onclick="guestLogin()"><i class="fas fa-user-secret"></i> Continuer en invité</button>
 </div>
 </div>
 
 <!-- APP -->
 <div class="app" id="appShell">
-
 <header class="topbar">
   <div class="topbar-logo">🇹🇳 ScanTN</div>
-  <div class="agent-badge">
-    <span class="dot"></span>
-    <span>Multi-Agent IA Actif</span>
+  <div class="store-sel" onclick="openStoreModal()">
+    <i class="fas fa-store"></i>
+    <span id="storeName">📍 Carrefour</span>
+    <i class="fas fa-chevron-down" style="font-size:.65rem"></i>
   </div>
-  <button class="topbar-btn" onclick="go('cart')">
-    <i class="fas fa-cart-shopping"></i>
-    <span class="cart-badge" id="cartBadge" style="display:none">0</span>
-  </button>
+  <button class="topbar-btn" onclick="go('cart')"><i class="fas fa-cart-shopping"></i><span class="cart-badge" id="cartBadge" style="display:none">0</span></button>
 </header>
 
 <!-- SCANNER -->
 <div class="scr on" id="s-scan">
   <div class="scan-area">
-    <div class="multi-info">
-      <i class="fas fa-bolt"></i>
-      <span>5 enseignes scannées en parallèle</span>
-    </div>
-    <div class="enseignes-preview">
+    <div class="enseignes-bar">
       <div class="ens-chip">🛒 Carrefour</div>
       <div class="ens-chip">🏬 Monoprix</div>
       <div class="ens-chip">🏬 MG</div>
       <div class="ens-chip">🛍️ Aziza</div>
-      <div class="ens-chip">🛒 Jumia</div>
+      <div class="ens-chip">🏪 Géant</div>
     </div>
     <div id="reader"></div>
     <button class="cam-btn" id="camBtn" onclick="toggleCam()"><i class="fas fa-camera"></i> Activer la caméra</button>
-    <div class="or-div">ou entrez le code-barres</div>
     <div class="bc-row">
       <input class="bc-in" id="bcIn" placeholder="6191003000019" maxlength="13" inputmode="numeric">
       <button class="bc-go" onclick="lookup()"><i class="fas fa-search"></i></button>
     </div>
-    <p class="scan-tip">💡 L'Agent IA interroge simultanément tous les sites marchands pour vous donner le meilleur prix</p>
   </div>
 </div>
 
-<!-- DETAIL -->
+<!-- DETAIL PRODUIT -->
 <div class="scr" id="s-detail" style="position:relative">
   <button class="det-back" onclick="go('scan')"><i class="fas fa-arrow-left"></i></button>
   <div id="detC"></div>
@@ -284,32 +183,26 @@ img{max-width:100%;display:block}
 
 <!-- PANIER -->
 <div class="scr" id="s-cart">
-  <div class="cart-hdr"><h2>🛒 Mon Panier Intelligent</h2><p>Total calculé au meilleur prix par produit</p></div>
+  <div class="cart-hdr"><h2>🛒 Mon Panier de Courses</h2></div>
+  <div class="cart-store-banner">
+    <div>📍 Magasin actuel : <span id="cartStoreLabel">Carrefour</span></div>
+    <button onclick="openStoreModal()" style="color:var(--blue);font-weight:800;font-size:.75rem">Changer</button>
+  </div>
   <div class="cart-list" id="cartList"></div>
   <div class="cart-total" id="cartTotal" style="display:none">
-    <div class="cart-total-row"><span>Articles</span><span id="ctItems">0</span></div>
-    <div class="cart-total-row saved"><span>💰 Économies réalisées</span><span id="ctSaved">0.000 DT</span></div>
-    <div class="cart-total-row final"><span>Total (meilleur prix)</span><span id="ctTotal">0.000 DT</span></div>
-    <button class="cart-checkout" onclick="showToast('✅ Liste sauvegardée !')"><i class="fas fa-check-circle"></i> Valider ma liste</button>
+    <div style="display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:.3rem"><span>Total chez <strong id="ctStoreName">Carrefour</strong></span><span id="ctStoreTotal" style="font-weight:800">0.000 DT</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:.85rem;color:var(--green);font-weight:700"><span>💰 Économie possible</span><span id="ctSavings">0.000 DT</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:1.15rem;font-weight:900;color:var(--red);margin-top:.4rem;padding-top:.4rem;border-top:1px solid var(--border)"><span>Meilleur Total possible</span><span id="ctBestTotal">0.000 DT</span></div>
+    <button class="add-cart-btn" style="width:100%;margin-top:.6rem" onclick="showToast('✅ Liste de courses prête !')">Démarrer mes courses</button>
   </div>
 </div>
 
 <!-- PROFIL -->
 <div class="scr" id="s-prof">
-  <div class="prof-top">
-    <div class="prof-av" id="profAv">T</div>
-    <div class="prof-name" id="profName">Utilisateur</div>
-    <div class="prof-email" id="profEmail">user@scantn.tn</div>
-  </div>
-  <div class="menu-list">
-    <div class="menu-item" onclick="toggleTheme()"><i class="fas fa-palette"></i> Thème Sombre / Clair <i class="fas fa-chevron-right ar"></i></div>
-    <div class="menu-item" onclick="exportData()"><i class="fas fa-download"></i> Exporter mon panier <i class="fas fa-chevron-right ar"></i></div>
-    <div class="menu-item" onclick="showToast('ScanTN v2.0 - Multi-Agent IA')"><i class="fas fa-info-circle"></i> À propos <i class="fas fa-chevron-right ar"></i></div>
-    <div class="menu-item danger" onclick="logout()"><i class="fas fa-right-from-bracket"></i> Déconnexion</div>
-  </div>
+  <div style="text-align:center;padding:2rem"><h2 id="profName">User</h2><p id="profEmail" style="color:var(--t3)">mail</p></div>
+  <div style="padding:0 1rem"><button class="add-cart-btn" onclick="logout()" style="width:100%">Se déconnecter</button></div>
 </div>
 
-<!-- BOTTOM NAV -->
 <nav class="bnav">
   <button class="btab on" data-s="scan" onclick="go('scan',this)"><i class="fas fa-barcode"></i>Scanner</button>
   <button class="fab" onclick="go('scan');setTimeout(toggleCam,200)"><i class="fas fa-camera"></i></button>
@@ -318,233 +211,187 @@ img{max-width:100%;display:block}
 </nav>
 </div>
 
-<!-- LOADER MULTI-AGENT -->
-<div class="loader-ov" id="loader">
-  <div class="loader-box">
-    <div class="loader-title">🤖 Multi-Agent IA en action</div>
-    <div class="agent-list">
-      <div class="agent-item loading"><i class="fas fa-spinner"></i> Carrefour.tn</div>
-      <div class="agent-item loading"><i class="fas fa-spinner"></i> Monoprix.tn</div>
-      <div class="agent-item loading"><i class="fas fa-spinner"></i> MG.tn</div>
-      <div class="agent-item loading"><i class="fas fa-spinner"></i> Aziza.tn</div>
-      <div class="agent-item loading"><i class="fas fa-spinner"></i> Jumia.com.tn</div>
-    </div>
-    <p style="font-size:.75rem;color:var(--t3);font-weight:600">Comparaison des prix en cours...</p>
-  </div>
+<!-- MODAL CHOIX MAGASIN -->
+<div class="modal-ov" id="storeModal">
+<div class="modal-box">
+  <h3 style="font-size:1rem;font-weight:800;margin-bottom:.75rem">📍 Je fais mes courses chez :</h3>
+  <div id="storeList"></div>
+</div>
 </div>
 
+<div class="loader-ov" id="loader"><div class="loader-box"><div class="spinner"></div><p id="loaderTxt">Recherche...</p></div></div>
 <div class="toast-w" id="toastW"></div>
 
 <script>
+const STORES=[
+{id:'carrefour',name:'Carrefour',icon:'🛒',color:'#2563eb'},
+{id:'monoprix',name:'Monoprix',icon:'🏬',color:'#e11d48'},
+{id:'mg',name:'Magasin Général',icon:'🏬',color:'#ea580c'},
+{id:'aziza',name:'Aziza',icon:'🛍️',color:'#16a34a'},
+{id:'geant',name:'Géant',icon:'🏪',color:'#7c3aed'}
+];
+
 const AI_AGENT_URL = '/api/scrape-price';
 
-let user = JSON.parse(localStorage.getItem('stn_user')) || null;
-let cart = JSON.parse(localStorage.getItem('stn_cart')) || [];
-let scanner = null, loginMode = 'in';
+let user=JSON.parse(localStorage.getItem('stn_user'))||null;
+let store=JSON.parse(localStorage.getItem('stn_store'))||STORES[0];
+let cart=JSON.parse(localStorage.getItem('stn_cart'))||[];
+let scanner=null,loginMode='in';
 
-// LOGIN
-function loginTab(m){
-  loginMode = m;
-  document.querySelectorAll('.login-tab').forEach((t,i)=>t.classList.toggle('on',i===(m==='in'?0:1)));
-  document.getElementById('nameGroup').style.display = m==='up'?'flex':'none';
-  document.getElementById('loginBtn').textContent = m==='in'?'Se connecter':'Créer un compte';
-}
-function doLogin(e){
-  e.preventDefault();
-  const email = document.getElementById('loginEmail').value;
-  const name = loginMode==='up' ? document.getElementById('regName').value||'Utilisateur' : 'Utilisateur';
-  user = {name, email};
-  localStorage.setItem('stn_user', JSON.stringify(user));
-  enterApp();
-}
+function loginTab(m){loginMode=m;document.getElementById('nameGroup').style.display=m==='up'?'flex':'none';document.getElementById('loginBtn').textContent=m==='in'?'Se connecter':'Créer un compte';}
+function doLogin(e){e.preventDefault();user={name:document.getElementById('regName')?.value||'Utilisateur',email:document.getElementById('loginEmail').value};localStorage.setItem('stn_user',JSON.stringify(user));enterApp();}
 function guestLogin(){user={name:'Invité',email:'invite@scantn.tn'};localStorage.setItem('stn_user',JSON.stringify(user));enterApp();}
-function enterApp(){
-  document.getElementById('loginScreen').style.display='none';
-  document.getElementById('appShell').classList.add('on');
-  document.getElementById('profName').textContent=user.name;
-  document.getElementById('profEmail').textContent=user.email;
-  document.getElementById('profAv').textContent=user.name.charAt(0).toUpperCase();
-  updateCartBadge();
-}
+function enterApp(){document.getElementById('loginScreen').style.display='none';document.getElementById('appShell').classList.add('on');document.getElementById('profName').textContent=user.name;document.getElementById('profEmail').textContent=user.email;document.getElementById('storeName').textContent='📍 '+store.name;updateCartBadge();}
 function logout(){user=null;localStorage.removeItem('stn_user');document.getElementById('appShell').classList.remove('on');document.getElementById('loginScreen').style.display='flex';stopScanner();}
 
-// NAV
-function go(s,tab){
-  stopScanner();
-  document.querySelectorAll('.scr').forEach(x=>x.classList.remove('on'));
-  document.getElementById('s-'+s).classList.add('on');
-  document.querySelectorAll('.btab').forEach(t=>t.classList.remove('on'));
-  if(tab)tab.classList.add('on');
-  if(s==='cart')renderCart();
-  window.scrollTo(0,0);
+function go(s,tab){stopScanner();document.querySelectorAll('.scr').forEach(x=>x.classList.remove('on'));document.getElementById('s-'+s).classList.add('on');document.querySelectorAll('.btab').forEach(t=>t.classList.remove('on'));if(tab)tab.classList.add('on');if(s==='cart')renderCart();window.scrollTo(0,0);}
+
+function openStoreModal(){
+  document.getElementById('storeList').innerHTML=STORES.map(s=>`
+    <div class="store-opt ${store.id===s.id?'sel':''}" onclick="pickStore('${s.id}')">
+      <div style="font-size:1.3rem">${s.icon}</div>
+      <div style="font-weight:800;font-size:.9rem">${s.name}</div>
+    </div>`).join('');
+  document.getElementById('storeModal').classList.add('on');
+}
+function pickStore(id){
+  store=STORES.find(s=>s.id===id);
+  localStorage.setItem('stn_store',JSON.stringify(store));
+  document.getElementById('storeName').textContent='📍 '+store.name;
+  document.getElementById('storeModal').classList.remove('on');
+  showToast('📍 Magasin : '+store.name);
+  if(document.getElementById('s-cart').classList.contains('on'))renderCart();
 }
 
-// SCANNER
 function toggleCam(){
-  const btn=document.getElementById('camBtn');
   if(scanner){stopScanner();return}
-  btn.innerHTML='<i class="fas fa-stop"></i> Arrêter la caméra';
+  document.getElementById('camBtn').innerHTML='<i class="fas fa-stop"></i> Arrêter';
   scanner=new Html5Qrcode("reader");
-  scanner.start({facingMode:"environment"},{fps:10,qrbox:{width:250,height:150}},
-    t=>{stopScanner();showDetail(t)},()=>{}
-  ).catch(()=>{showToast("❌ Caméra indisponible");stopScanner()});
+  scanner.start({facingMode:"environment"},{fps:10,qrbox:{width:250,height:150}},t=>{stopScanner();showDetail(t)},()=>{}).catch(()=>{showToast("❌ Caméra indisponible");stopScanner()});
 }
 function stopScanner(){if(scanner){scanner.stop().then(()=>{scanner.clear();scanner=null;document.getElementById('camBtn').innerHTML='<i class="fas fa-camera"></i> Activer la caméra'}).catch(()=>{scanner=null})}}
-function lookup(){const c=document.getElementById('bcIn').value.trim();if(!c)return showToast('⚠️ Entrez un code-barres');showDetail(c)}
+function lookup(){const c=document.getElementById('bcIn').value.trim();if(!c)return showToast('⚠️ Entrez un code');showDetail(c)}
 
-// MULTI-AGENT DETAIL
 async function showDetail(bc){
-  showLoader();
-  
-  let data = null;
+  showLoader('🤖 Recherche des prix dans les 5 enseignes...');
+  let data=null;
   try {
-    const res = await fetch(`${AI_AGENT_URL}?barcode=${bc}`);
-    data = await res.json();
-  } catch(e) {
-    console.error(e);
-  }
-  
+    const res=await fetch(`${AI_AGENT_URL}?barcode=${bc}`);
+    data=await res.json();
+  } catch(e){}
   hideLoader();
 
-  if(!data || !data.found || !data.results.length){
-    showToast('❌ Aucun prix trouvé sur les enseignes');
-    return;
+  if(!data || !data.results || !data.results.length){
+    showToast('❌ Produit non trouvé');return;
   }
 
-  const results = data.results;
-  const best = results[0]; // Trié par prix croissant côté serveur
-  const worst = results[results.length - 1];
-  const avgPrice = (results.reduce((s,r)=>s+r.price,0) / results.length).toFixed(3);
-  const savings = (worst.price - best.price).toFixed(3);
-  const inCart = cart.find(c => c.bc === bc);
+  const results=data.results;
+  const currentPriceObj=results.find(r=>r.st===store.id) || results[0];
+  const best=results[0];
+  const inCart=cart.find(c=>c.bc===bc);
 
-  document.getElementById('detC').innerHTML = `
+  document.getElementById('detC').innerHTML=`
     <div class="det-hero">
-      <div class="det-img">${data.productImage ? `<img src="${data.productImage}" onerror="this.parentElement.innerHTML='📦'">` : '📦'}</div>
+      <div class="det-img">${data.productImage?`<img src="${data.productImage}" onerror="this.parentElement.innerHTML='📦'">`:'📦'}</div>
       <div class="det-meta">
-        <div class="brand">${data.brand || best.storeIcon + ' Comparaison'}</div>
-        <div class="pname">${data.productName || best.title}</div>
+        <div class="brand">${data.brand||'Marque'}</div>
+        <div class="pname">${data.productName}</div>
         <div class="barcode"><i class="fas fa-barcode"></i> ${bc}</div>
       </div>
     </div>
 
-    <!-- MEILLEUR PRIX -->
-    <div class="best-price">
-      <div class="bp-label">💰 Meilleur prix trouvé</div>
-      <div class="bp-val">${best.price.toFixed(3)} <small style="font-size:1rem">DT</small></div>
-      <div class="bp-store">${best.storeIcon} ${best.store}</div>
-      <div class="bp-addr">📍 ${best.addr}</div>
-      <div class="bp-source">✅ ${best.source} · Extrait en ${data.duration}</div>
-    </div>
-
-    <!-- STATS -->
-    <div class="stats-bar">
-      <div class="stat-mini"><div class="v">${results.length}</div><div class="l">Enseignes</div></div>
-      <div class="stat-mini"><div class="v">${avgPrice}</div><div class="l">Prix moyen (DT)</div></div>
-      <div class="stat-mini" style="background:var(--green-l)"><div class="v" style="color:var(--green)">${savings}</div><div class="l">Économie max</div></div>
-    </div>
-
-    <!-- ACTIONS -->
-    <div class="action-grid">
-      <button class="btn-act btn-primary ${inCart?'added':''}" onclick='addToCart("${bc}", ${JSON.stringify(data.productName||best.title).replace(/"/g,"&quot;")}, ${best.price}, "${best.image||data.productImage||''}", "${best.store}")'>
-        <i class="fas ${inCart?'fa-check':'fa-cart-plus'}"></i> ${inCart?'Dans le panier ✓':'Ajouter au meilleur prix'}
-      </button>
-    </div>
-
-    <!-- COMPARATIF -->
-    <div class="comp-sec">
-      <div class="comp-title">
-        <h3><i class="fas fa-balance-scale" style="color:var(--purple)"></i> Comparatif Multi-Enseignes</h3>
-        <span class="badge">Live</span>
+    <!-- PRIX DANS MON MAGASIN -->
+    <div class="current-store-card">
+      <div>
+        <div class="csc-title">Prix chez ${store.name}</div>
+        <div class="csc-val">${currentPriceObj.price.toFixed(3)} DT</div>
       </div>
-      ${results.map((r, i) => {
-        const diff = (r.price - best.price).toFixed(3);
-        const isBest = i === 0;
-        return `
-          <div class="p-card ${isBest?'best':''}">
-            <div class="p-row">
-              <div class="p-ico" style="background:${r.storeColor}15;color:${r.storeColor}">${r.storeIcon}</div>
-              <div class="p-info">
-                <div class="p-name">${r.store} ${isBest?'':''}</div>
-                <div class="p-addr">📍 ${r.addr}</div>
-              </div>
-              <div class="p-val-box">
-                <div class="p-val ${isBest?'best-val':''}">${r.price.toFixed(3)} <small style="font-size:.7rem">DT</small></div>
-                ${!isBest ? `<div class="p-diff plus">+${diff} DT</div>` : `<div class="p-diff minus">Le moins cher</div>`}
-              </div>
-            </div>
-            <div class="p-foot">
-              <div class="p-src"><i class="fas fa-link"></i> ${r.source}</div>
-              ${r.url ? `<a href="${r.url}" target="_blank" class="p-visit"><i class="fas fa-external-link-alt"></i> Voir</a>` : ''}
-            </div>
-          </div>
-        `;
-      }).join('')}
+      <div>${store.icon}</div>
     </div>
 
-    <div style="height:1.5rem"></div>
+    <!-- MEILLEUR PRIX GLOBAL -->
+    <div class="best-price">
+      <div style="font-size:.7rem;font-weight:700;color:var(--green)">🏆 Le moins cher : chez ${best.name || best.st}</div>
+      <div class="bp-val">${best.price.toFixed(3)} <small style="font-size:1rem">DT</small></div>
+    </div>
+
+    <button class="add-cart-btn" onclick='addToCart("${bc}", ${JSON.stringify(data.productName).replace(/"/g,"&quot;")}, ${JSON.stringify(results).replace(/"/g,"&quot;")}, "${data.productImage||''}")'>
+      <i class="fas ${inCart?'fa-check':'fa-cart-plus'}"></i> ${inCart?'Dans le panier ✓':'Ajouter à mon panier'}
+    </button>
+
+    <!-- COMPARATIF 5 ENSEIGNES -->
+    <div class="comp-sec">
+      <h3>📊 Comparatif des 5 Enseignes</h3>
+      ${results.map((r,i)=>`
+        <div class="p-card ${i===0?'best':''}">
+          <div class="p-row">
+            <div class="p-ico" style="background:${r.color}15;color:${r.color}">${r.icon||'🏬'}</div>
+            <div class="p-info"><div class="p-name">${r.name||r.st} ${r.st===store.id?'(Votre magasin)':''}</div></div>
+            <div class="p-val">${r.price.toFixed(3)} <small style="font-size:.7rem">DT</small></div>
+          </div>
+        </div>`).join('')}
+    </div>
   `;
-  
   go('detail');
 }
 
-// CART
-function addToCart(bc, name, price, img, store){
-  const ex = cart.find(c => c.bc === bc);
-  if(ex){ ex.qty++; showToast('🛒 Quantité +1'); }
-  else {
-    cart.push({ bc, name, price, img, store, qty: 1, addedAt: Date.now() });
-    showToast(`✅ Ajouté (${store})`);
-  }
+function addToCart(bc, name, allPrices, img){
+  const ex=cart.find(c=>c.bc===bc);
+  if(ex)ex.qty++;
+  else cart.push({bc, name, allPrices, img, qty:1});
   saveCart();
-  showDetail(bc);
+  showToast('✅ Ajouté au panier !');
 }
-function removeFromCart(bc){ cart=cart.filter(c=>c.bc!==bc); saveCart(); renderCart(); }
+function removeFromCart(bc){cart=cart.filter(c=>c.bc!==bc);saveCart();renderCart();}
 function changeQty(bc,d){const it=cart.find(c=>c.bc===bc);if(!it)return;it.qty+=d;if(it.qty<1)return removeFromCart(bc);saveCart();renderCart();}
 function saveCart(){localStorage.setItem('stn_cart',JSON.stringify(cart));updateCartBadge();}
 function updateCartBadge(){const b=document.getElementById('cartBadge'),n=cart.reduce((s,c)=>s+c.qty,0);b.style.display=n>0?'flex':'none';b.textContent=n;}
 
 function renderCart(){
   const list=document.getElementById('cartList'),total=document.getElementById('cartTotal');
+  document.getElementById('cartStoreLabel').textContent=store.name;
+  document.getElementById('ctStoreName').textContent=store.name;
+
   if(!cart.length){
-    list.innerHTML='<div class="empty"><i class="fas fa-cart-shopping"></i><h3>Panier vide</h3><p>Scannez pour ajouter des articles</p></div>';
+    list.innerHTML='<div class="empty"><i class="fas fa-cart-shopping"></i><h3>Panier vide</h3><p>Scannez des produits pour démarrer</p></div>';
     total.style.display='none';return;
   }
-  list.innerHTML=cart.map(c=>`
-    <div class="cart-item">
-      <div class="cart-img">${c.img?`<img src="${c.img}" onerror="this.parentElement.innerHTML='📦'">`:'📦'}</div>
-      <div class="cart-info">
-        <div class="cn">${c.name}</div>
-        <div class="cp">${(c.price*c.qty).toFixed(3)} DT</div>
-        <div class="cs">🏆 ${c.store||'Meilleur prix'}</div>
-      </div>
-      <div class="cart-qty">
-        <button onclick="changeQty('${c.bc}',-1)">−</button>
-        <span>${c.qty}</span>
-        <button onclick="changeQty('${c.bc}',1)">+</button>
-      </div>
-      <button onclick="removeFromCart('${c.bc}')" style="color:var(--red);font-size:.85rem;padding:.3rem"><i class="fas fa-trash"></i></button>
-    </div>`).join('');
-  const items=cart.reduce((s,c)=>s+c.qty,0);
-  const tot=cart.reduce((s,c)=>s+c.price*c.qty,0);
-  const saved=cart.reduce((s,c)=>s+(c.price*0.15*c.qty),0); // Estimation économies
-  document.getElementById('ctItems').textContent=items;
-  document.getElementById('ctTotal').textContent=tot.toFixed(3)+' DT';
-  document.getElementById('ctSaved').textContent='~'+saved.toFixed(3)+' DT';
+
+  let storeSum=0, bestSum=0;
+
+  list.innerHTML=cart.map(c=>{
+    const storeObj=c.allPrices.find(p=>p.st===store.id) || c.allPrices[0];
+    const bestObj=c.allPrices[0];
+    storeSum += storeObj.price * c.qty;
+    bestSum += bestObj.price * c.qty;
+
+    return `
+      <div class="cart-item">
+        <div style="width:40px;height:40px;background:var(--bl);border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden">${c.img?`<img src="${c.img}">`:'📦'}</div>
+        <div class="cart-info">
+          <div style="font-weight:800;font-size:.82rem">${c.name}</div>
+          <div style="font-size:.72rem;color:var(--t3)">Prix chez ${store.name} : ${storeObj.price.toFixed(3)} DT</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.3rem">
+          <button onclick="changeQty('${c.bc}',-1)" style="padding:.2rem .4rem;background:var(--bl);border-radius:4px;font-weight:800">-</button>
+          <span style="font-weight:800;font-size:.85rem">${c.qty}</span>
+          <button onclick="changeQty('${c.bc}',1)" style="padding:.2rem .4rem;background:var(--bl);border-radius:4px;font-weight:800">+</button>
+        </div>
+      </div>`;
+  }).join('');
+
+  const savings = Math.max(0, storeSum - bestSum);
+  document.getElementById('ctStoreTotal').textContent=storeSum.toFixed(3)+' DT';
+  document.getElementById('ctSavings').textContent=savings.toFixed(3)+' DT';
+  document.getElementById('ctBestTotal').textContent=bestSum.toFixed(3)+' DT';
   total.style.display='block';
 }
 
-// UTILS
-function showLoader(){document.getElementById('loader').classList.add('on')}
-function hideLoader(){document.getElementById('loader').classList.remove('on')}
-function showToast(m){const w=document.getElementById('toastW'),t=document.createElement('div');t.className='toast';t.textContent=m;w.appendChild(t);setTimeout(()=>{t.style.opacity='0';setTimeout(()=>t.remove(),200)},2200)}
-function toggleTheme(){const d=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',d?'':'dark');localStorage.setItem('stn_theme',d?'light':'dark')}
-function exportData(){const b=new Blob([JSON.stringify({cart,date:new Date().toISOString()},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`scantn_${Date.now()}.json`;a.click();showToast('📁 Exporté !')}
+function showLoader(t){document.getElementById('loaderTxt').textContent=t;document.getElementById('loader').classList.add('on');}
+function hideLoader(){document.getElementById('loader').classList.remove('on');}
+function showToast(m){const w=document.getElementById('toastW'),t=document.createElement('div');t.className='toast';t.textContent=m;w.appendChild(t);setTimeout(()=>{t.style.opacity='0';setTimeout(()=>t.remove(),200)},2000);}
 
-(function(){
-  if(localStorage.getItem('stn_theme')==='dark')document.documentElement.setAttribute('data-theme','dark');
-  if(user)enterApp();
-})();
+(function(){if(user)enterApp();})();
 </script>
 </body>
-    </html>
+</html>
